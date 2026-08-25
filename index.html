@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ashish Gholap — Video Editor</title>
-<meta name="description" content="Ashish Gholap is a video editor turning raw footage into engaging, polished reels — editing, motion graphics, color grading, and sound design.">
+<meta name="description" content="Ashish Gholap is a video editor turning raw footage into engaging, polished content across long-form, short-form, talking head, social, and commercial work.">
 
 <!-- Open Graph -->
 <meta property="og:title" content="Ashish Gholap — Video Editor">
@@ -13,242 +13,396 @@
 <meta property="og:image" content="assets/images/poster1.jpg">
 
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2220%22 fill=%22%230a0a0c%22/><text x=%2250%22 y=%2266%22 font-size=%2260%22 text-anchor=%22middle%22 fill=%22%2317c9b6%22 font-family=%22Arial%22>A</text></svg>">
-<link rel="stylesheet" href="assets/css/style.css">
-</head>
-<body>
+<style>
+/* ============================================================
+   ASHISH GHOLAP — VIDEO EDITOR PORTFOLIO
+   Design language: non-linear editor (NLE) vernacular —
+   timecodes, tracks, scrubbers, and a teal/amber color-grade
+   duotone (the literal "before/after" of his own reels).
+   ============================================================ */
 
-<!-- signature scroll-scrubber -->
-<div class="scrubbar"><div class="scrubbar__fill"></div></div>
-<div class="scrubbar__head">00:00:00:00</div>
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
-<nav class="nav">
-  <a href="#top" class="nav__logo">AG <span>VIDEO&nbsp;EDITOR</span></a>
-  <button class="nav__toggle" aria-label="Open menu"><span></span><span></span><span></span></button>
-  <ul class="nav__links">
-    <li><a href="#work">Work</a></li>
-    <li><a href="#about">About</a></li>
-    <li><a href="#skills">Skills</a></li>
-    <li><a href="#experience">Experience</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
-  <a href="mailto:ashishgholap605@gmail.com" class="nav__cta">Hire me</a>
-</nav>
+:root{
+  --bg:            #0a0a0c;
+  --bg-panel:      #131316;
+  --bg-panel-2:    #1a1a1e;
+  --line:          rgba(255,255,255,0.09);
+  --line-soft:     rgba(255,255,255,0.05);
+  --text:          #f3f1ec;
+  --text-dim:      #9a999f;
+  --text-faint:    #616166;
 
-<!-- ============ HERO ============ -->
-<header class="hero" id="top">
-  <div class="container">
-    <div class="hero__col">
-      <span class="eyebrow">Video Editor — Based in India</span>
-      <h1 class="hero__title">I cut, grade &amp;<br>pace footage<br>into <em>reels people<br>finish watching.</em></h1>
-      <p class="hero__desc">Hey, I'm Ashish. I turn raw footage into engaging, polished content — combining storytelling, pacing, motion, color, and sound to make edits that feel intentional.</p>
-      <div class="hero__meta">
-        <div><span>Role</span>Video Editor</div>
-        <div><span>Focus</span>Reels &amp; Social Cuts</div>
-        <div><span>Tools</span>Premiere · AE · PS</div>
-        <div><span>Based</span>India</div>
-      </div>
-      <div class="hero__actions">
-        <a href="#work" class="btn btn--solid">Watch the reel</a>
-        <a href="mailto:ashishgholap605@gmail.com" class="btn btn--outline">Start a project</a>
-      </div>
-    </div>
+  --teal:          #17c9b6;   /* "before" — raw / flat */
+  --teal-dim:      #0e6f66;
+  --amber:         #ff7a3d;   /* "after" — graded / warm */
+  --amber-dim:     #8a3f1c;
 
-    <div class="hero-phone">
-      <video class="hero-phone__video" src="assets/videos/reel4.mp4" muted loop playsinline autoplay preload="auto" poster="assets/images/poster4.jpg"></video>
-      <span class="hero-phone__tag">Live from @theeditnote</span>
-    </div>
-  </div>
-</header>
+  --grad-teal-amber: linear-gradient(90deg, var(--teal), var(--amber));
 
-<!-- ============ WORK ============ -->
-<section id="work">
-  <div class="container">
-    <div class="section-head reveal">
-      <span class="eyebrow">Selected Work</span>
-      <h2>The Reel</h2>
-      <p>Five before/after edits — same footage, reshaped through cuts, pacing, color, and sound. Tap a clip to play it with audio.</p>
-    </div>
+  --display: 'Bebas Neue', 'Arial Narrow', sans-serif;
+  --body:    'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --mono:    'JetBrains Mono', 'SFMono-Regular', Menlo, monospace;
 
-    <div class="reels__scroller reveal">
-      <article class="reel">
-        <div class="reel__frame" data-src="assets/videos/reel1.mp4">
-          <img class="poster" src="assets/images/poster1.jpg" alt="Before/after edit 1 poster frame" loading="lazy">
-          <video muted loop playsinline preload="metadata" data-preview src="assets/videos/reel1.mp4#t=0.5"></video>
-          <span class="reel__tag">Clip 01</span>
-          <span class="reel__tc">00:23</span>
-          <div class="reel__playbtn"><i></i></div>
-        </div>
-        <div class="reel__cap"><h4>Before / After — Grade</h4><span>Color</span></div>
-      </article>
+  --container: 1180px;
+  --edge: clamp(24px, 5vw, 72px);
 
-      <article class="reel">
-        <div class="reel__frame" data-src="assets/videos/reel2.mp4">
-          <img class="poster" src="assets/images/poster2.jpg" alt="Before/after edit 2 poster frame" loading="lazy">
-          <video muted loop playsinline preload="metadata" data-preview src="assets/videos/reel2.mp4#t=0.5"></video>
-          <span class="reel__tag">Clip 02</span>
-          <span class="reel__tc">00:14</span>
-          <div class="reel__playbtn"><i></i></div>
-        </div>
-        <div class="reel__cap"><h4>Before / After — Grade</h4><span>Color</span></div>
-      </article>
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+}
 
-      <article class="reel">
-        <div class="reel__frame" data-src="assets/videos/reel3.mp4">
-          <img class="poster" src="assets/images/poster3.jpg" alt="Before/after edit 3 poster frame" loading="lazy">
-          <video muted loop playsinline preload="metadata" data-preview src="assets/videos/reel3.mp4#t=0.5"></video>
-          <span class="reel__tag">Clip 03</span>
-          <span class="reel__tc">00:15</span>
-          <div class="reel__playbtn"><i></i></div>
-        </div>
-        <div class="reel__cap"><h4>Before / After — Final</h4><span>Color</span></div>
-      </article>
+*, *::before, *::after{ box-sizing: border-box; }
+html{ scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce){
+  html{ scroll-behavior: auto; }
+  *, *::before, *::after{ animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+}
 
-      <article class="reel">
-        <div class="reel__frame" data-src="assets/videos/reel4.mp4">
-          <img class="poster" src="assets/images/poster4.jpg" alt="Before/after edit 4 poster frame" loading="lazy">
-          <video muted loop playsinline preload="metadata" data-preview src="assets/videos/reel4.mp4#t=0.5"></video>
-          <span class="reel__tag">Clip 04</span>
-          <span class="reel__tc">00:18</span>
-          <div class="reel__playbtn"><i></i></div>
-        </div>
-        <div class="reel__cap"><h4>Before / After — Grade</h4><span>Color</span></div>
-      </article>
+body{
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--body);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+html{ overflow-x: hidden; max-width: 100%; }
+.hero__title{ overflow-wrap: break-word; }
 
-      <article class="reel">
-        <div class="reel__frame" data-src="assets/videos/reel5.mp4">
-          <img class="poster" src="assets/images/poster5.jpg" alt="Before/after edit 5 poster frame" loading="lazy">
-          <video muted loop playsinline preload="metadata" data-preview src="assets/videos/reel5.mp4#t=0.5"></video>
-          <span class="reel__tag">Clip 05</span>
-          <span class="reel__tc">00:35</span>
-          <div class="reel__playbtn"><i></i></div>
-        </div>
-        <div class="reel__cap"><h4>Before / After — Grade</h4><span>Color</span></div>
-      </article>
-    </div>
-    <p class="reels__hint">← scroll to browse the timeline · tap a clip for sound-on →</p>
-  </div>
-</section>
+/* subtle film-grain / vignette atmosphere */
+body::before{
+  content: "";
+  position: fixed; inset: 0;
+  pointer-events: none;
+  z-index: 999;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  mix-blend-mode: overlay;
+}
+body::after{
+  content: "";
+  position: fixed; inset: 0;
+  pointer-events: none;
+  z-index: 998;
+  background: radial-gradient(ellipse at 50% 0%, rgba(255,255,255,0.05), transparent 55%),
+              radial-gradient(ellipse at 50% 100%, rgba(0,0,0,0.55), transparent 60%);
+}
 
-<!-- ============ ABOUT ============ -->
-<section id="about">
-  <div class="container">
-    <div class="section-head reveal" style="margin-bottom:40px;">
-      <span class="eyebrow">About</span>
-      <h2>The Editor</h2>
-    </div>
-    <div class="about__text reveal">
-      <p>Hey, I'm <strong>Ashish</strong>. I'm a video editor focused on turning raw footage into engaging, polished content. My journey started with learning video editing and motion graphics, followed by hands-on experience through professional internships, full-time work, and independent projects.</p>
-      <p>I enjoy combining <strong>storytelling, pacing, motion, color, and sound</strong> to create edits that feel intentional and keep viewers engaged.</p>
-    </div>
-    <div class="stat-panel reveal">
-      <div class="stat-panel__row"><span>Current Role</span><span>Video Editor, Linkgenic Digitech</span></div>
-      <div class="stat-panel__row"><span>Experience</span><span>8 months full-time <span class="dot">+</span> 3 months internship</span></div>
-      <div class="stat-panel__row"><span>Training</span><span>Video Editing &amp; Motion Graphics, eQuinoxx</span></div>
-      <div class="stat-panel__row"><span>Education</span><span>BCA, Dr. B.A.M. University</span></div>
-      <div class="stat-panel__row"><span>Location</span><span>India</span></div>
-    </div>
-  </div>
-</section>
+a{ color: inherit; text-decoration: none; }
+img, video{ display: block; max-width: 100%; }
+button{ font-family: inherit; cursor: pointer; }
 
-<!-- ============ SKILLS ============ -->
-<section id="skills">
-  <div class="container">
-    <div class="section-head reveal">
-      <span class="eyebrow">Skills</span>
-      <h2>On the Timeline</h2>
-      <p>What I bring to every project, laid out the way it lives in the edit — video tracks for craft, audio tracks for feel.</p>
-    </div>
+.container{ max-width: var(--container); margin: 0 auto; padding: 0 var(--edge); }
+.eyebrow{
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--teal);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+.eyebrow::before{
+  content: "";
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--amber);
+  box-shadow: 0 0 0 3px rgba(255,122,61,0.15);
+}
 
-    <div class="tracks reveal">
-      <div class="track track--video"><div class="track__label">V1</div><div class="track__clip">Video Editing</div></div>
-      <div class="track track--video"><div class="track__label">V2</div><div class="track__clip">Motion Graphics</div></div>
-      <div class="track track--video"><div class="track__label">V3</div><div class="track__clip">Color Grading</div></div>
-      <div class="track track--audio"><div class="track__label">A1</div><div class="track__clip">Sound Design</div></div>
-      <div class="track track--audio"><div class="track__label">A2</div><div class="track__clip">Storytelling</div></div>
-    </div>
+.section-head{ margin-bottom: 56px; }
+.section-head h2{
+  font-family: var(--display);
+  font-size: clamp(40px, 6vw, 68px);
+  letter-spacing: 0.01em;
+  line-height: 1;
+  margin: 14px 0 0;
+  text-transform: uppercase;
+}
+.section-head p{
+  max-width: 46ch;
+  color: var(--text-dim);
+  margin: 16px 0 0;
+  font-size: 16px;
+}
 
-    <div class="binbar reveal">// Media Bin — Tools</div>
-    <div class="bin reveal">
-      <div class="bin__item"><span class="ext">APP</span><h4>Adobe Premiere Pro</h4></div>
-      <div class="bin__item"><span class="ext">APP</span><h4>Adobe After Effects</h4></div>
-      <div class="bin__item"><span class="ext">APP</span><h4>Adobe Photoshop</h4></div>
-    </div>
-  </div>
-</section>
+section{ padding: 120px 0; position: relative; }
+section + section{ border-top: 1px solid var(--line-soft); }
 
-<!-- ============ EXPERIENCE / EDUCATION ============ -->
-<section id="experience">
-  <div class="container">
-    <div class="section-head reveal">
-      <span class="eyebrow">Experience &amp; Education</span>
-      <h2>The Timeline</h2>
-    </div>
+/* ============ SCRUB BAR (signature element) ============ */
+.scrubbar{
+  position: fixed; top: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--bg-panel);
+  z-index: 1000;
+}
+.scrubbar__fill{
+  height: 100%;
+  width: 0%;
+  background: var(--grad-teal-amber);
+  transition: width 0.05s linear;
+}
+.scrubbar__head{
+  position: fixed;
+  top: 3px; left: 0;
+  transform: translateX(-50%);
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--bg);
+  background: var(--amber);
+  padding: 3px 7px;
+  border-radius: 0 0 4px 4px;
+  z-index: 1000;
+  white-space: nowrap;
+  letter-spacing: 0.03em;
+  transition: left 0.05s linear;
+}
 
-    <div class="timeline reveal">
-      <div class="trow trow--edu">
-        <div class="trow__date">2022 — 2025</div>
-        <div class="trow__node"><i></i></div>
-        <div class="trow__body">
-          <h4>Bachelor of Computer Applications</h4>
-          <div class="org">Dr. Babasaheb Ambedkar Marathwada University</div>
-          <span class="trow__tag">Education</span>
-        </div>
-      </div>
-      <div class="trow trow--work">
-        <div class="trow__date">3 months</div>
-        <div class="trow__node"><i></i></div>
-        <div class="trow__body">
-          <h4>Video Editing Intern</h4>
-          <div class="org">Luxelite Studios — Internship</div>
-          <span class="trow__tag">Work</span>
-        </div>
-      </div>
-      <div class="trow trow--edu">
-        <div class="trow__date">2025 — 2026</div>
-        <div class="trow__node"><i></i></div>
-        <div class="trow__body">
-          <h4>Video Editing &amp; Motion Graphics</h4>
-          <div class="org">eQuinoxx Creative Academy</div>
-          <span class="trow__tag">Education</span>
-        </div>
-      </div>
-      <div class="trow trow--work">
-        <div class="trow__date">8 months</div>
-        <div class="trow__node"><i></i></div>
-        <div class="trow__body">
-          <h4>Video Editor</h4>
-          <div class="org">Linkgenic Digitech — Full-time · Current</div>
-          <span class="trow__tag">Work</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+/* ============ NAV ============ */
+.nav{
+  position: fixed; top: 3px; left: 0; right: 0;
+  z-index: 900;
+  padding: 18px var(--edge);
+  display: flex; align-items: center; justify-content: space-between;
+  backdrop-filter: blur(10px);
+  background: linear-gradient(to bottom, rgba(10,10,12,0.85), rgba(10,10,12,0));
+  transition: background 0.3s var(--ease), padding 0.3s var(--ease);
+}
+.nav.is-scrolled{
+  background: rgba(10,10,12,0.88);
+  border-bottom: 1px solid var(--line-soft);
+}
+.nav__logo{
+  font-family: var(--display);
+  font-size: 22px;
+  letter-spacing: 0.04em;
+  display: flex; align-items: baseline; gap: 8px;
+}
+.nav__logo span{ color: var(--text-dim); font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; }
+.nav__links{ display: flex; gap: 34px; list-style: none; margin: 0; padding: 0; }
+.nav__links a{
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  position: relative;
+  padding-bottom: 4px;
+  transition: color 0.2s var(--ease);
+}
+.nav__links a::after{
+  content: "";
+  position: absolute; left: 0; bottom: 0;
+  width: 0; height: 1px;
+  background: var(--grad-teal-amber);
+  transition: width 0.25s var(--ease);
+}
+.nav__links a:hover{ color: var(--text); }
+.nav__links a:hover::after{ width: 100%; }
+.nav__cta{
+  font-family: var(--mono);
+  font-size: 12px;
+  border: 1px solid var(--line);
+  padding: 9px 16px;
+  border-radius: 3px;
+  letter-spacing: 0.04em;
+  transition: border-color 0.2s var(--ease), background 0.2s var(--ease);
+}
+.nav__cta:hover{ border-color: var(--amber); background: rgba(255,122,61,0.08); }
+.nav__toggle{ display: none; }
 
-<!-- ============ CONTACT ============ -->
-<section id="contact" class="contact">
-  <div class="container">
-    <span class="eyebrow">Let's Talk</span>
-    <h2>Got footage that needs a story?</h2>
-    <a class="contact__email" href="mailto:ashishgholap605@gmail.com">ashishgholap605@gmail.com</a>
-    <div class="contact__links">
-      <a href="https://www.instagram.com/theeditnote/" target="_blank" rel="noopener">Instagram — @theeditnote</a>
-    </div>
-  </div>
-</section>
+/* ============ HERO ============ */
+.hero{
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding-top: 140px;
+  padding-bottom: 80px;
+}
+.hero .container{
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  gap: 64px;
+  align-items: center;
+}
+.hero__title{
+  font-family: var(--display);
+  font-size: clamp(48px, 6.6vw, 92px);
+  line-height: 0.98;
+  letter-spacing: 0.005em;
+  text-transform: uppercase;
+  margin: 18px 0 0;
+}
+.hero__title em{
+  font-style: normal;
+  background: var(--grad-teal-amber);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.hero__desc{
+  color: var(--text-dim);
+  font-size: 17px;
+  max-width: 48ch;
+  margin: 26px 0 0;
+}
+.hero__formats{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 22px;
+}
+.hero__formats span{
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  border: 1px solid var(--line);
+  padding: 6px 12px;
+  border-radius: 20px;
+}
+.hero__avail{
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--teal);
+  letter-spacing: 0.03em;
+  margin: 22px 0 0;
+}
+.hero__meta{
+  display: flex;
+  gap: 32px;
+  margin-top: 40px;
+  flex-wrap: wrap;
+}
+.hero__meta div{ font-family: var(--mono); font-size: 12px; }
+.hero__meta div span{ display: block; color: var(--text-faint); text-transform: uppercase; letter-spacing: 0.08em; font-size: 10px; margin-bottom: 6px; }
+.hero__actions{ display: flex; gap: 16px; margin-top: 44px; flex-wrap: wrap; }
+.btn{
+  font-family: var(--mono);
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  padding: 15px 26px;
+  border-radius: 3px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  transition: transform 0.25s var(--ease), box-shadow 0.25s var(--ease), background 0.25s var(--ease);
+}
+.btn--solid{ background: var(--text); color: var(--bg); }
+.btn--solid:hover{ transform: translateY(-2px); box-shadow: 0 10px 30px -8px rgba(255,122,61,0.45); }
+.btn--outline{ border: 1px solid var(--line); color: var(--text); }
+.btn--outline:hover{ border-color: var(--teal); background: rgba(23,201,182,0.08); transform: translateY(-2px); }
 
-<footer>
-  <span>© 2026 Ashish Gholap. All cuts reserved.</span>
-  <span>Video Editor · Storyteller · India</span>
-</footer>
+/* hero video frame — his real edit, playing live */
+.hero-phone{
+  position: relative;
+  width: 100%;
+  max-width: 340px;
+  margin: 0 auto;
+  aspect-ratio: 9/16;
+  border-radius: 22px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  box-shadow: 0 40px 90px -30px rgba(0,0,0,0.75), 0 0 0 1px rgba(255,255,255,0.02);
+  background: var(--bg-panel);
+}
+.hero-phone::after{
+  content: "";
+  position: absolute; inset: 0;
+  border-radius: 22px;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.06);
+  pointer-events: none;
+}
+.hero-phone__video{
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+}
+.hero-phone__tag{
+  position: absolute; bottom: 16px; left: 16px;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  padding: 6px 11px;
+  border-radius: 20px;
+  background: rgba(10,10,12,0.65);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255,255,255,0.1);
+  display: inline-flex; align-items: center; gap: 7px;
+  z-index: 2;
+}
+.hero-phone__tag::before{
+  content: "";
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--amber);
+  box-shadow: 0 0 0 3px rgba(255,122,61,0.2);
+}
 
-<div class="lightbox">
-  <div class="lightbox__inner">
-    <button class="lightbox__close">Close ✕</button>
-    <video controls playsinline></video>
-  </div>
-</div>
+/* ============ WORK / REEL GALLERY ============ */
+.reels__scroller{
+  display: flex;
+  gap: 22px;
+  overflow-x: auto;
+  padding: 6px 0 28px;
+  scroll-snap-type: x proximity;
+  scrollbar-width: thin;
+  scrollbar-color: var(--line) transparent;
+}
+.reels__scroller::-webkit-scrollbar{ height: 6px; }
+.reels__scroller::-webkit-scrollbar-thumb{ background: var(--line); border-radius: 4px; }
 
-<script src="assets/js/main.js"></script>
-</body>
-</html>
+.reel{
+  flex: 0 0 auto;
+  width: 240px;
+  scroll-snap-align: start;
+}
+.reel__frame{
+  position: relative;
+  width: 100%;
+  aspect-ratio: 9/16;
+  border-radius: 16px;
+  overflow: hidden;
+  background: var(--bg-panel);
+  border: 1px solid var(--line);
+  box-shadow: 0 20px 50px -20px rgba(0,0,0,0.6);
+}
+.reel__frame video, .reel__frame .poster{
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+}
+.reel__frame .poster{ transition: opacity 0.3s var(--ease); }
+.reel__frame.is-playing .poster{ opacity: 0; }
+.reel__playbtn{
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  background: linear-gradient(to top, rgba(0,0,0,0.55), transparent 40%);
+  z-index: 2;
+  transition: opacity 0.25s var(--ease);
+}
+.reel__frame.is-playing .reel__playbtn{ opacity: 0; pointer-events: none; }
+.reel__playbtn i{
+  width: 46px; height: 46px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255,255,255,0.7);
+  display: flex; align-items: center; justify-content: center;
+  backdrop-filter: blur(6px);
+}
+.reel__playbtn i::before{
+  content: "";
+  border-top: 6px solid transparent; border-bottom: 6px solid transparent;
+  border-left: 9px solid var(--text);
+  margin-left: 3px;
+}
+.reel__tag{
+  position: absolute; top: 12px; left: 12px;
+  font-family: var(--mono); font-size: 10px; letter-spacing: 0.08em;
+  color: var(--text); background: rgba(10,10,12,0.6); backdrop-filter: blur(4px);
+  padding: 4px 8px; border-radius: 3px; z-index: 2;
+}
+.reel__tc{
+  position: absolute; bottom: 12px; right: 12px;
+  font-family: var(--mono); font-size: 10px;
+  color: var(--amber); background: rgba(10,10,12,0.6);
