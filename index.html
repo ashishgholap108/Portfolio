@@ -405,4 +405,752 @@ section + section{ border-top: 1px solid var(--line-soft); }
 .reel__tc{
   position: absolute; bottom: 12px; right: 12px;
   font-family: var(--mono); font-size: 10px;
-  color: var(--amber); background: rgba(10,10,12,0.6);
+  color: var(--amber); background: rgba(10,10,12,0.6); backdrop-filter: blur(4px);
+  padding: 4px 8px; border-radius: 3px; z-index: 2;
+}
+.reel__cap{
+  margin-top: 14px;
+  display: flex; justify-content: space-between; align-items: baseline;
+}
+.reel__cap h4{ margin: 0; font-size: 14px; font-weight: 600; }
+.reel__cap span{ font-family: var(--mono); font-size: 11px; color: var(--text-faint); }
+
+.reels__hint{
+  font-family: var(--mono); font-size: 11px; color: var(--text-faint);
+  display: flex; align-items: center; gap: 8px; margin-top: 4px;
+}
+
+/* ============ FROM RAW -> FINAL (feature comparison cards) ============ */
+.compare-grid{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+}
+.reel__frame--feature{
+  aspect-ratio: 9/13;
+}
+.compare-card .reel__cap span{ color: var(--text-faint); }
+
+/* lightbox */
+.lightbox{
+  position: fixed; inset: 0; z-index: 2000;
+  background: rgba(6,6,7,0.92);
+  backdrop-filter: blur(6px);
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.25s var(--ease);
+}
+.lightbox.is-open{ opacity: 1; pointer-events: auto; }
+.lightbox__inner{ position: relative; width: min(92vw, 420px); }
+.lightbox__inner video{ width: 100%; border-radius: 14px; max-height: 84vh; object-fit: contain; background: #000; }
+.lightbox__close{
+  position: absolute; top: -46px; right: 0;
+  font-family: var(--mono); font-size: 12px; color: var(--text-dim);
+  border: 1px solid var(--line); padding: 8px 14px; border-radius: 3px;
+}
+.lightbox__close:hover{ color: var(--text); border-color: var(--amber); }
+
+/* ============ CONTACT CHOICE MODAL ============ */
+.contact-modal{
+  position: fixed; inset: 0; z-index: 2100;
+  background: rgba(6,6,7,0.92);
+  backdrop-filter: blur(6px);
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.25s var(--ease);
+  padding: 24px;
+}
+.contact-modal.is-open{ opacity: 1; pointer-events: auto; }
+.contact-modal__inner{
+  position: relative;
+  width: min(92vw, 440px);
+  background: var(--bg-panel);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 40px 34px;
+  text-align: center;
+}
+.contact-modal__inner h3{
+  font-family: var(--display);
+  font-size: 30px;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  margin: 14px 0 8px;
+  line-height: 1.1;
+}
+.contact-modal__inner > p{ color: var(--text-dim); font-size: 14px; margin: 0 0 28px; }
+.contact-modal__close{
+  position: absolute; top: -46px; right: 0;
+  font-family: var(--mono); font-size: 12px; color: var(--text-dim);
+  border: 1px solid var(--line); padding: 8px 14px; border-radius: 3px;
+  background: none;
+}
+.contact-modal__close:hover{ color: var(--text); border-color: var(--amber); }
+.contact-modal__options{ display: flex; flex-direction: column; gap: 12px; }
+.contact-option{
+  display: flex; align-items: center; gap: 16px;
+  padding: 16px 18px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  text-align: left;
+  transition: border-color 0.2s var(--ease), background 0.2s var(--ease), transform 0.2s var(--ease);
+}
+.contact-option:hover{ border-color: var(--teal); background: rgba(23,201,182,0.06); transform: translateY(-2px); }
+.contact-option__icon{
+  flex: 0 0 auto;
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  background: var(--bg-panel-2);
+  border: 1px solid var(--line);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--mono); font-size: 12px; letter-spacing: 0.02em;
+  color: var(--amber);
+}
+.contact-option__text{ display: flex; flex-direction: column; gap: 2px; }
+.contact-option__text strong{ font-size: 15px; font-weight: 600; }
+.contact-option__text em{ font-style: normal; font-size: 12px; color: var(--text-faint); font-family: var(--mono); }
+
+/* ============ ABOUT ============ */
+.about .container{ max-width: 720px; }
+.about__text p{ font-size: 18px; color: var(--text-dim); margin: 0 0 20px; max-width: 56ch; }
+.about__text p strong{ color: var(--text); font-weight: 600; }
+.about__avail{
+  font-family: var(--mono);
+  font-size: 13px !important;
+  color: var(--teal) !important;
+  letter-spacing: 0.03em;
+  margin-top: 8px !important;
+}
+
+/* ============ SKILLS — NLE TRACK LIST ============ */
+.tracks{ display: flex; flex-direction: column; gap: 2px; margin-bottom: 60px; }
+.track{
+  display: grid;
+  grid-template-columns: 90px 1fr;
+  border: 1px solid var(--line-soft);
+  border-radius: 6px;
+  overflow: hidden;
+}
+.track + .track{ margin-top: 6px; }
+.track__label{
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--bg-panel);
+  color: var(--text-faint);
+  border-right: 1px solid var(--line-soft);
+}
+.track--video .track__label{ color: var(--teal); }
+.track--audio .track__label{ color: var(--amber); }
+.track__clip{
+  padding: 18px 22px;
+  display: flex; align-items: center; gap: 14px;
+  background: var(--bg-panel-2);
+  font-size: 15px;
+  font-weight: 500;
+}
+.track__clip::before{
+  content: "";
+  width: 6px; align-self: stretch;
+  border-radius: 2px;
+  background: var(--line);
+}
+.track--video .track__clip::before{ background: var(--teal-dim); }
+.track--audio .track__clip::before{ background: var(--amber-dim); }
+
+.binbar{
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--text-faint);
+  margin: 8px 0 18px;
+}
+.bin{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+.bin__item{
+  background: var(--bg-panel);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 24px 20px;
+  transition: border-color 0.25s var(--ease), transform 0.25s var(--ease);
+}
+.bin__item:hover{ border-color: var(--teal); transform: translateY(-3px); }
+.bin__item .ext{
+  font-family: var(--mono); font-size: 10px; color: var(--amber);
+  letter-spacing: 0.06em; display: block; margin-bottom: 10px;
+}
+.bin__item h4{ margin: 0; font-size: 16px; font-weight: 600; }
+
+/* ============ TIMELINE (experience/education) ============ */
+.timeline{ position: relative; }
+.timeline::before{
+  content: "";
+  position: absolute; left: 130px; top: 6px; bottom: 6px;
+  width: 1px;
+  background: var(--line);
+}
+.trow{
+  display: grid;
+  grid-template-columns: 130px 24px 1fr;
+  gap: 0 20px;
+  padding-bottom: 48px;
+  position: relative;
+}
+.trow:last-child{ padding-bottom: 0; }
+.trow__date{
+  font-family: var(--mono); font-size: 12px; color: var(--text-faint);
+  padding-top: 3px; text-align: right;
+}
+.trow__node{ position: relative; display: flex; justify-content: center; }
+.trow__node i{
+  width: 11px; height: 11px; border-radius: 50%;
+  background: var(--bg); border: 2px solid var(--teal);
+  margin-top: 4px; z-index: 1;
+}
+.trow--edu .trow__node i{ border-color: var(--amber); }
+.trow__body h4{ margin: 0 0 6px; font-size: 19px; }
+.trow__body .org{ font-size: 14px; color: var(--text-dim); margin-bottom: 8px; }
+.trow__tag{
+  display: inline-block;
+  font-family: var(--mono); font-size: 10px; letter-spacing: 0.07em;
+  text-transform: uppercase;
+  padding: 3px 9px; border-radius: 3px;
+  border: 1px solid var(--line);
+  color: var(--text-faint);
+}
+
+/* ============ TESTIMONIALS ============ */
+.testimonial-placeholder{
+  border: 1px dashed var(--line);
+  border-radius: 10px;
+  padding: 40px;
+  max-width: 640px;
+}
+.testimonial-placeholder p{
+  margin: 0;
+  color: var(--text-dim);
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+/* ============ CONTACT / FINAL CTA ============ */
+.contact{ text-align: center; }
+.contact .eyebrow{ justify-content: center; }
+.contact h2{
+  font-family: var(--display);
+  font-size: clamp(38px, 6.5vw, 76px);
+  line-height: 1.05;
+  text-transform: uppercase;
+  margin: 18px auto 0;
+  max-width: 20ch;
+}
+.contact__sub{
+  color: var(--text-dim);
+  font-size: 17px;
+  max-width: 46ch;
+  margin: 22px auto 0;
+}
+.contact__cta{ margin-top: 36px; }
+.contact__links{
+  display: flex; justify-content: center; gap: 28px;
+  margin-top: 30px;
+  font-family: var(--mono); font-size: 13px; color: var(--text-dim);
+  flex-wrap: wrap;
+}
+.contact__links a:hover{ color: var(--teal); }
+
+footer{
+  padding: 40px var(--edge) 50px;
+  display: flex; justify-content: space-between; align-items: center;
+  font-family: var(--mono); font-size: 11px; color: var(--text-faint);
+  flex-wrap: wrap; gap: 12px;
+}
+
+/* ============ reveal-on-scroll ============ */
+.reveal{ opacity: 0; transform: translateY(24px); transition: opacity 0.7s var(--ease), transform 0.7s var(--ease); }
+.reveal.is-visible{ opacity: 1; transform: translateY(0); }
+
+/* ============ RESPONSIVE ============ */
+@media (max-width: 900px){
+  .hero .container{ grid-template-columns: 1fr; }
+  .hero-phone{ order: -1; }
+  .bin{ grid-template-columns: 1fr 1fr; }
+  .timeline::before{ left: 8px; }
+  .trow{ grid-template-columns: 20px 1fr; }
+  .trow__date{ display: none; }
+  .trow__node{ justify-content: flex-start; }
+  .compare-grid{ grid-template-columns: 1fr; max-width: 340px; margin: 0 auto; }
+}
+@media (max-width: 720px){
+  .nav__links{
+    position: fixed; top: 0; right: -100%; height: 100vh; width: 78vw; max-width: 320px;
+    background: var(--bg-panel); flex-direction: column; padding: 100px 32px; gap: 26px;
+    transition: right 0.35s var(--ease);
+    border-left: 1px solid var(--line);
+  }
+  .nav__links.is-open{ right: 0; }
+  .nav__cta{ display: none; }
+  .nav__toggle{
+    display: flex; flex-direction: column; gap: 5px; z-index: 1001;
+    background: none; border: none; padding: 6px;
+  }
+  .nav__toggle span{ width: 22px; height: 1.5px; background: var(--text); display: block; }
+  section{ padding: 84px 0; }
+  .bin{ grid-template-columns: 1fr; }
+}
+
+</style>
+</head>
+<body>
+
+<!-- signature scroll-scrubber -->
+<div class="scrubbar"><div class="scrubbar__fill"></div></div>
+<div class="scrubbar__head">00:00:00:00</div>
+
+<nav class="nav">
+  <a href="#top" class="nav__logo">AG <span>VIDEO&nbsp;EDITOR</span></a>
+  <button class="nav__toggle" aria-label="Open menu"><span></span><span></span><span></span></button>
+  <ul class="nav__links">
+    <li><a href="#work">Work</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="mailto:ashishgholap605@gmail.com" class="nav__cta js-open-contact">Let's Work Together</a>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header class="hero" id="top">
+  <div class="container">
+    <div class="hero__col">
+      <span class="eyebrow">Ashish Gholap — Video Editor</span>
+      <h1 class="hero__title">I turn raw footage<br>into <em>engaging<br>stories.</em></h1>
+      <p class="hero__desc">I turn raw footage into engaging, polished content through storytelling, pacing, motion, sound, and visual design.</p>
+      <div class="hero__formats">
+        <span>Long-form</span><span>Short-form</span><span>Talking Head</span><span>Social</span><span>Commercial</span>
+      </div>
+      <div class="hero__meta">
+        <div><span>Role</span>Video Editor</div>
+        <div><span>Focus</span>Long-form · Short-form · Talking Head</div>
+        <div><span>Tools</span>Premiere · AE · PS</div>
+        <div><span>Based</span>India</div>
+      </div>
+      <p class="hero__avail">Available for freelance projects and remote opportunities worldwide.</p>
+      <div class="hero__actions">
+        <a href="#work" class="btn btn--outline">Watch the reel</a>
+        <a href="mailto:ashishgholap605@gmail.com" class="btn btn--solid js-open-contact">Let's Work Together</a>
+      </div>
+    </div>
+
+    <div class="hero-phone">
+      <video class="hero-phone__video" src="assets/videos/reel4.mp4" muted loop playsinline autoplay preload="auto" poster="assets/images/poster4.jpg"></video>
+    </div>
+  </div>
+</header>
+
+<!-- ============ WORK ============ -->
+<section id="work">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Portfolio</span>
+      <h2>Selected Work</h2>
+      <p>A selection of edits showing how I approach storytelling, pacing, visuals, color, and sound.</p>
+    </div>
+
+    <div class="reels__scroller reveal">
+      <article class="reel">
+        <div class="reel__frame" data-src="assets/videos/reel1.mp4">
+          <img class="poster" src="assets/images/poster1.jpg" alt="Talking head edit poster frame" loading="lazy">
+          <video muted loop playsinline preload="metadata" data-preview src="assets/videos/reel1.mp4#t=0.5"></video>
+          <span class="reel__tag">Clip 01</span>
+          <span class="reel__tc">00:23</span>
+          <div class="reel__playbtn"><i></i></div>
+        </div>
+        <div class="reel__cap"><h4>Talking Head · Pacing</h4><span>Before → After</span></div>
+      </article>
+
+      <article class="reel">
+        <div class="reel__frame" data-src="assets/videos/reel2.mp4">
+          <img class="poster" src="assets/images/poster2.jpg" alt="Talking head interview edit poster frame" loading="lazy">
+          <video muted loop playsinline preload="metadata" data-preview src="assets/videos/reel2.mp4#t=0.5"></video>
+          <span class="reel__tag">Clip 02</span>
+          <span class="reel__tc">00:14</span>
+          <div class="reel__playbtn"><i></i></div>
+        </div>
+        <div class="reel__cap"><h4>Talking Head · Sound Design</h4><span>Before → After</span></div>
+      </article>
+
+      <article class="reel">
+        <div class="reel__frame" data-src="assets/videos/reel3.mp4">
+          <img class="poster" src="assets/images/poster3.jpg" alt="Motion graphics edit poster frame" loading="lazy">
+          <video muted loop playsinline preload="metadata" data-preview src="assets/videos/reel3.mp4#t=0.5"></video>
+          <span class="reel__tag">Clip 03</span>
+          <span class="reel__tc">00:15</span>
+          <div class="reel__playbtn"><i></i></div>
+        </div>
+        <div class="reel__cap"><h4>Motion Graphics · Storytelling</h4><span>Before → After</span></div>
+      </article>
+
+      <article class="reel">
+        <div class="reel__frame" data-src="assets/videos/reel4.mp4">
+          <img class="poster" src="assets/images/poster4.jpg" alt="Social content edit poster frame" loading="lazy">
+          <video muted loop playsinline preload="metadata" data-preview src="assets/videos/reel4.mp4#t=0.5"></video>
+          <span class="reel__tag">Clip 04</span>
+          <span class="reel__tc">00:18</span>
+          <div class="reel__playbtn"><i></i></div>
+        </div>
+        <div class="reel__cap"><h4>Social Content · Visual Editing</h4><span>Before → After</span></div>
+      </article>
+
+      <article class="reel">
+        <div class="reel__frame" data-src="assets/videos/reel5.mp4">
+          <img class="poster" src="assets/images/poster5.jpg" alt="Talking head storytelling edit poster frame" loading="lazy">
+          <video muted loop playsinline preload="metadata" data-preview src="assets/videos/reel5.mp4#t=0.5"></video>
+          <span class="reel__tag">Clip 05</span>
+          <span class="reel__tc">00:35</span>
+          <div class="reel__playbtn"><i></i></div>
+        </div>
+        <div class="reel__cap"><h4>Talking Head · Storytelling</h4><span>Before → After</span></div>
+      </article>
+    </div>
+    <p class="reels__hint">← scroll to browse the timeline · tap a clip for sound-on →</p>
+  </div>
+</section>
+
+<!-- ============ FROM RAW → FINAL ============ -->
+<section id="raw-final">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Process</span>
+      <h2>From Raw → Final</h2>
+      <p>Same footage. A different story. A closer look at how two of these edits went from raw capture to finished cut.</p>
+    </div>
+
+    <div class="compare-grid reveal">
+      <article class="compare-card">
+        <div class="reel__frame reel__frame--feature" data-src="assets/videos/reel1.mp4">
+          <img class="poster" src="assets/images/poster1.jpg" alt="Raw versus final comparison, clip 1" loading="lazy">
+          <span class="reel__tag">Raw → Final</span>
+          <span class="reel__tc">00:23</span>
+          <div class="reel__playbtn"><i></i></div>
+        </div>
+        <div class="reel__cap"><h4>Talking Head · Pacing</h4><span>Tap to play with sound</span></div>
+      </article>
+
+      <article class="compare-card">
+        <div class="reel__frame reel__frame--feature" data-src="assets/videos/reel4.mp4">
+          <img class="poster" src="assets/images/poster4.jpg" alt="Raw versus final comparison, clip 4" loading="lazy">
+          <span class="reel__tag">Raw → Final</span>
+          <span class="reel__tc">00:18</span>
+          <div class="reel__playbtn"><i></i></div>
+        </div>
+        <div class="reel__cap"><h4>Social Content · Visual Editing</h4><span>Tap to play with sound</span></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ABOUT ============ -->
+<section id="about">
+  <div class="container">
+    <div class="section-head reveal" style="margin-bottom:40px;">
+      <span class="eyebrow">About</span>
+      <h2>The Editor</h2>
+    </div>
+    <div class="about__text reveal">
+      <p>Hey, I'm <strong>Ashish</strong>. I'm a video editor focused on turning raw footage into engaging, polished content.</p>
+      <p>My journey started with learning video editing and motion graphics, followed by hands-on experience through professional training, an internship, full-time work, and independent projects.</p>
+      <p>I enjoy combining <strong>storytelling, pacing, motion, color, and sound</strong> to create edits that feel intentional and keep viewers engaged.</p>
+      <p>I'm continuously developing my skills across different formats, including talking-head, social content, long-form, commercial, and story-driven videos.</p>
+      <p class="about__avail">Based in India · Available Worldwide</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ EXPERIENCE / EDUCATION ============ -->
+<section id="experience">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Experience &amp; Education</span>
+      <h2>The Timeline</h2>
+    </div>
+
+    <div class="timeline reveal">
+      <div class="trow trow--edu">
+        <div class="trow__date">2022 — 2025</div>
+        <div class="trow__node"><i></i></div>
+        <div class="trow__body">
+          <h4>Bachelor of Computer Applications</h4>
+          <div class="org">Dr. Babasaheb Ambedkar Marathwada University</div>
+          <span class="trow__tag">Education</span>
+        </div>
+      </div>
+      <div class="trow trow--work">
+        <div class="trow__date">3 months</div>
+        <div class="trow__node"><i></i></div>
+        <div class="trow__body">
+          <h4>Video Editing Intern</h4>
+          <div class="org">Luxelite Studios — Internship</div>
+          <span class="trow__tag">Work</span>
+        </div>
+      </div>
+      <div class="trow trow--edu">
+        <div class="trow__date">2025 — 2026</div>
+        <div class="trow__node"><i></i></div>
+        <div class="trow__body">
+          <h4>Video Editing &amp; Motion Graphics</h4>
+          <div class="org">eQuinoxx Creative Academy</div>
+          <span class="trow__tag">Education</span>
+        </div>
+      </div>
+      <div class="trow trow--work">
+        <div class="trow__date">9 months</div>
+        <div class="trow__node"><i></i></div>
+        <div class="trow__body">
+          <h4>Video Editor</h4>
+          <div class="org">Linkgenic Digitech — Full-time · Current</div>
+          <span class="trow__tag">Work</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SKILLS ============ -->
+<section id="skills">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Skills</span>
+      <h2>On the Timeline</h2>
+      <p>What I bring to every project, laid out the way it lives in the edit — video tracks for craft, audio tracks for feel.</p>
+    </div>
+
+    <div class="tracks reveal">
+      <div class="track track--video"><div class="track__label">V1</div><div class="track__clip">Video Editing</div></div>
+      <div class="track track--video"><div class="track__label">V2</div><div class="track__clip">Motion Graphics</div></div>
+      <div class="track track--video"><div class="track__label">V3</div><div class="track__clip">Color Grading</div></div>
+      <div class="track track--audio"><div class="track__label">A1</div><div class="track__clip">Sound Design</div></div>
+      <div class="track track--audio"><div class="track__label">A2</div><div class="track__clip">Storytelling</div></div>
+    </div>
+
+    <div class="binbar reveal">// Media Bin — Tools</div>
+    <div class="bin reveal">
+      <div class="bin__item"><span class="ext">APP</span><h4>Adobe Premiere Pro</h4></div>
+      <div class="bin__item"><span class="ext">APP</span><h4>Adobe After Effects</h4></div>
+      <div class="bin__item"><span class="ext">APP</span><h4>Adobe Photoshop</h4></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TESTIMONIALS ============ -->
+<section id="testimonials">
+  <div class="container">
+    <div class="section-head reveal" style="margin-bottom:32px;">
+      <span class="eyebrow">What Clients Say</span>
+      <h2>Trusted With Their Content.</h2>
+    </div>
+    <!-- Placeholder: replace this card with real client testimonials as they come in. -->
+    <div class="testimonial-placeholder reveal">
+      <p>Client testimonials — coming soon. I'm currently gathering feedback from recent projects. Check back shortly, or reach out directly for references.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FINAL CTA ============ -->
+<section id="contact" class="contact">
+  <div class="container">
+    <span class="eyebrow">Let's Talk</span>
+    <h2>Have something worth sharing?<br>Let's make it worth watching.</h2>
+    <p class="contact__sub">Whether you're looking for a freelance editor or a reliable remote video editor, let's talk.</p>
+    <a href="mailto:ashishgholap605@gmail.com" class="btn btn--solid contact__cta js-open-contact">Let's Work Together</a>
+    <div class="contact__links">
+      <a href="mailto:ashishgholap605@gmail.com">ashishgholap605@gmail.com</a>
+      <a href="https://www.instagram.com/theeditnote/" target="_blank" rel="noopener">Instagram — @theeditnote</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>© 2026 Ashish Gholap. All cuts reserved.</span>
+  <span>Video Editor · Storyteller · India</span>
+</footer>
+
+<!-- ============ CONTACT CHOICE MODAL ============ -->
+<div class="contact-modal" id="contactModal" aria-hidden="true">
+  <div class="contact-modal__inner">
+    <button class="contact-modal__close" aria-label="Close">Close ✕</button>
+    <span class="eyebrow">Let's Work Together</span>
+    <h3>Have a project or opportunity in mind?</h3>
+    <p>Choose how you'd like to reach me.</p>
+    <div class="contact-modal__options">
+      <!-- WhatsApp: +91 86055 36613 -->
+      <a class="contact-option" href="https://wa.me/918605536613?text=Hi%20Ashish%2C%20I%20came%20across%20your%20portfolio%20and%20would%20like%20to%20discuss%20a%20video%20editing%20project%2Fopportunity." target="_blank" rel="noopener">
+        <span class="contact-option__icon">WA</span>
+        <span class="contact-option__text">
+          <strong>WhatsApp</strong>
+          <em>Start a conversation</em>
+        </span>
+      </a>
+      <a class="contact-option" href="mailto:ashishgholap605@gmail.com?subject=Video%20Editing%20Project%20%2F%20Opportunity">
+        <span class="contact-option__icon">@</span>
+        <span class="contact-option__text">
+          <strong>Email</strong>
+          <em>Send an email</em>
+        </span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<div class="lightbox">
+  <div class="lightbox__inner">
+    <button class="lightbox__close">Close ✕</button>
+    <video controls playsinline></video>
+  </div>
+</div>
+
+<script>
+// ============================================================
+// ASHISH GHOLAP — VIDEO EDITOR PORTFOLIO
+// ============================================================
+
+document.addEventListener('DOMContentLoaded', () => {
+
+  /* ---------- scrub-bar : page-as-timeline scroll progress ---------- */
+  const fill = document.querySelector('.scrubbar__fill');
+  const head = document.querySelector('.scrubbar__head');
+  const nav  = document.querySelector('.nav');
+  const TOTAL_SECONDS = 150; // fictional "runtime" of the page edit
+
+  function formatTimecode(pct){
+    const totalFrames = Math.round(pct * TOTAL_SECONDS * 24); // 24fps
+    const fps = 24;
+    const totalSec = Math.floor(totalFrames / fps);
+    const mm = String(Math.floor(totalSec / 60)).padStart(2, '0');
+    const ss = String(totalSec % 60).padStart(2, '0');
+    const ff = String(totalFrames % fps).padStart(2, '0');
+    return `00:${mm}:${ss}:${ff}`;
+  }
+
+  function onScroll(){
+    const doc = document.documentElement;
+    const scrollTop = doc.scrollTop || document.body.scrollTop;
+    const scrollHeight = doc.scrollHeight - doc.clientHeight;
+    const pct = scrollHeight > 0 ? Math.min(1, Math.max(0, scrollTop / scrollHeight)) : 0;
+    if (fill) fill.style.width = (pct * 100) + '%';
+    if (head){
+      head.style.left = (pct * 100) + '%';
+      head.textContent = formatTimecode(pct);
+    }
+    if (nav) nav.classList.toggle('is-scrolled', scrollTop > 40);
+  }
+  document.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  /* ---------- mobile nav toggle ---------- */
+  const toggle = document.querySelector('.nav__toggle');
+  const links = document.querySelector('.nav__links');
+  if (toggle && links){
+    toggle.addEventListener('click', () => links.classList.toggle('is-open'));
+    links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => links.classList.remove('is-open')));
+  }
+
+  /* ---------- hero video: make sure autoplay actually kicks in ---------- */
+  const heroVideo = document.querySelector('.hero-phone__video');
+  if (heroVideo){
+    const tryPlay = () => heroVideo.play().catch(() => {});
+    tryPlay();
+    document.addEventListener('click', tryPlay, { once: true });
+  }
+
+  /* ---------- contact choice modal ---------- */
+  const contactModal = document.getElementById('contactModal');
+  const contactClose = contactModal ? contactModal.querySelector('.contact-modal__close') : null;
+  const contactTriggers = document.querySelectorAll('.js-open-contact');
+
+  function openContactModal(e){
+    if (!contactModal) return;
+    if (e) e.preventDefault();
+    contactModal.classList.add('is-open');
+    contactModal.setAttribute('aria-hidden', 'false');
+  }
+  function closeContactModal(){
+    if (!contactModal) return;
+    contactModal.classList.remove('is-open');
+    contactModal.setAttribute('aria-hidden', 'true');
+  }
+  contactTriggers.forEach(el => el.addEventListener('click', openContactModal));
+  if (contactClose) contactClose.addEventListener('click', closeContactModal);
+  if (contactModal) contactModal.addEventListener('click', (e) => { if (e.target === contactModal) closeContactModal(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeContactModal(); });
+
+  /* ---------- reel cards: click-to-play + lightbox ---------- */
+  const lightbox = document.querySelector('.lightbox');
+  const lightboxVideo = lightbox ? lightbox.querySelector('video') : null;
+  const lightboxClose = lightbox ? lightbox.querySelector('.lightbox__close') : null;
+
+  document.querySelectorAll('.reel__frame').forEach(frame => {
+    const src = frame.dataset.src;
+    frame.addEventListener('click', () => {
+      if (!lightbox || !lightboxVideo) return;
+      lightboxVideo.src = src;
+      lightbox.classList.add('is-open');
+      lightboxVideo.currentTime = 0;
+      lightboxVideo.muted = false;
+      lightboxVideo.play().catch(()=>{});
+    });
+  });
+
+  function closeLightbox(){
+    if (!lightbox || !lightboxVideo) return;
+    lightbox.classList.remove('is-open');
+    lightboxVideo.pause();
+    lightboxVideo.removeAttribute('src');
+    lightboxVideo.load();
+  }
+  if (lightboxClose) lightboxClose.addEventListener('click', closeLightbox);
+  if (lightbox) lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeLightbox(); });
+
+  /* ---------- muted autoplay preview when card scrolls into view ---------- */
+  const previewVideos = document.querySelectorAll('.reel__frame video[data-preview]');
+  if ('IntersectionObserver' in window && previewVideos.length){
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        const vid = entry.target;
+        const frame = vid.closest('.reel__frame');
+        if (entry.isIntersecting){
+          vid.play().then(() => frame.classList.add('is-playing')).catch(()=>{});
+        } else {
+          vid.pause();
+          frame.classList.remove('is-playing');
+        }
+      });
+    }, { threshold: 0.6 });
+    previewVideos.forEach(v => io.observe(v));
+  }
+
+  /* ---------- reveal-on-scroll ---------- */
+  const revealEls = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window && revealEls.length){
+    const ro = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting){
+          entry.target.classList.add('is-visible');
+          ro.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    revealEls.forEach(el => ro.observe(el));
+  } else {
+    revealEls.forEach(el => el.classList.add('is-visible'));
+  }
+
+});
+
+</script>
+</body>
+</html>
