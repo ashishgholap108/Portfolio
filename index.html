@@ -420,16 +420,78 @@ section + section{ border-top: 1px solid var(--line-soft); }
   display: flex; align-items: center; gap: 8px; margin-top: 4px;
 }
 
-/* ============ FROM RAW -> FINAL (feature comparison cards) ============ */
-.compare-grid{
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 28px;
+/* ============ SCROLLER NAV (prev/next arrows for Selected Work & Testimonials) ============ */
+.scroller-wrap{ position: relative; }
+.scroller-btn{
+  position: absolute; top: 50%;
+  transform: translateY(-50%);
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  background: rgba(10,10,12,0.75);
+  backdrop-filter: blur(6px);
+  border: 1px solid var(--line);
+  color: var(--text);
+  font-size: 20px;
+  line-height: 1;
+  display: flex; align-items: center; justify-content: center;
+  z-index: 5;
+  transition: border-color 0.2s var(--ease), background 0.2s var(--ease), transform 0.2s var(--ease);
 }
-.reel__frame--feature{
-  aspect-ratio: 9/13;
+.scroller-btn:hover{ border-color: var(--teal); background: rgba(23,201,182,0.15); }
+.scroller-btn:active{ transform: translateY(-50%) scale(0.94); }
+.scroller-btn--prev{ left: -4px; }
+.scroller-btn--next{ right: -4px; }
+.scroller-wrap .reels__scroller{ padding-left: 46px; padding-right: 46px; }
+.scroller-wrap .testimonials__scroller{ padding-left: 46px; padding-right: 46px; }
+
+/* ============ TESTIMONIALS SCROLLER ============ */
+.testimonials__scroller{
+  display: flex;
+  gap: 22px;
+  overflow-x: auto;
+  padding: 6px 0 28px;
+  scroll-snap-type: x proximity;
+  scrollbar-width: thin;
+  scrollbar-color: var(--line) transparent;
 }
-.compare-card .reel__cap span{ color: var(--text-faint); }
+.testimonials__scroller::-webkit-scrollbar{ height: 6px; }
+.testimonials__scroller::-webkit-scrollbar-thumb{ background: var(--line); border-radius: 4px; }
+
+.testimonial-card{
+  flex: 0 0 auto;
+  width: 340px;
+  scroll-snap-align: start;
+  background: var(--bg-panel);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 28px 26px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.testimonial-card__quote{
+  font-size: 14px;
+  line-height: 1.75;
+  color: var(--text-dim);
+  margin: 0;
+}
+.testimonial-card__quote::before{
+  content: "\201C";
+  color: var(--teal);
+  font-size: 30px;
+  line-height: 0;
+  vertical-align: -10px;
+  margin-right: 3px;
+}
+.testimonial-card__meta{
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  border-top: 1px solid var(--line-soft);
+  padding-top: 14px;
+}
 
 /* lightbox */
 .lightbox{
@@ -621,20 +683,6 @@ section + section{ border-top: 1px solid var(--line-soft); }
   color: var(--text-faint);
 }
 
-/* ============ TESTIMONIALS ============ */
-.testimonial-placeholder{
-  border: 1px dashed var(--line);
-  border-radius: 10px;
-  padding: 40px;
-  max-width: 640px;
-}
-.testimonial-placeholder p{
-  margin: 0;
-  color: var(--text-dim);
-  font-size: 16px;
-  line-height: 1.7;
-}
-
 /* ============ CONTACT / FINAL CTA ============ */
 .contact{ text-align: center; }
 .contact .eyebrow{ justify-content: center; }
@@ -681,7 +729,6 @@ footer{
   .trow{ grid-template-columns: 20px 1fr; }
   .trow__date{ display: none; }
   .trow__node{ justify-content: flex-start; }
-  .compare-grid{ grid-template-columns: 1fr; max-width: 340px; margin: 0 auto; }
 }
 @media (max-width: 720px){
   .nav__links{
@@ -699,6 +746,12 @@ footer{
   .nav__toggle span{ width: 22px; height: 1.5px; background: var(--text); display: block; }
   section{ padding: 84px 0; }
   .bin{ grid-template-columns: 1fr; }
+  .scroller-btn{ width: 36px; height: 36px; font-size: 16px; }
+  .scroller-btn--prev{ left: 2px; }
+  .scroller-btn--next{ right: 2px; }
+  .scroller-wrap .reels__scroller{ padding-left: 40px; padding-right: 40px; }
+  .scroller-wrap .testimonials__scroller{ padding-left: 40px; padding-right: 40px; }
+  .testimonial-card{ width: 280px; }
 }
 
 </style>
@@ -760,8 +813,10 @@ footer{
       <p>A selection of edits showing how I approach storytelling, pacing, visuals, color, and sound.</p>
     </div>
 
-    <div class="reels__scroller reveal">
-      <article class="reel">
+    <div class="scroller-wrap reveal">
+      <button class="scroller-btn scroller-btn--prev" data-target="work-scroller" aria-label="Previous project">‹</button>
+      <div class="reels__scroller" id="work-scroller">
+        <article class="reel">
         <div class="reel__frame" data-src="assets/videos/reel1.mp4">
           <img class="poster" src="assets/images/poster1.jpg" alt="Talking head edit poster frame" loading="lazy">
           <video muted loop playsinline preload="metadata" data-preview src="assets/videos/reel1.mp4#t=0.5"></video>
@@ -815,41 +870,10 @@ footer{
         </div>
         <div class="reel__cap"><h4>Talking Head · Storytelling</h4><span>Before → After</span></div>
       </article>
+      </div>
+      <button class="scroller-btn scroller-btn--next" data-target="work-scroller" aria-label="Next project">›</button>
     </div>
-    <p class="reels__hint">← scroll to browse the timeline · tap a clip for sound-on →</p>
-  </div>
-</section>
-
-<!-- ============ FROM RAW → FINAL ============ -->
-<section id="raw-final">
-  <div class="container">
-    <div class="section-head reveal">
-      <span class="eyebrow">Process</span>
-      <h2>From Raw → Final</h2>
-      <p>Same footage. A different story. A closer look at how two of these edits went from raw capture to finished cut.</p>
-    </div>
-
-    <div class="compare-grid reveal">
-      <article class="compare-card">
-        <div class="reel__frame reel__frame--feature" data-src="assets/videos/reel1.mp4">
-          <img class="poster" src="assets/images/poster1.jpg" alt="Raw versus final comparison, clip 1" loading="lazy">
-          <span class="reel__tag">Raw → Final</span>
-          <span class="reel__tc">00:23</span>
-          <div class="reel__playbtn"><i></i></div>
-        </div>
-        <div class="reel__cap"><h4>Talking Head · Pacing</h4><span>Tap to play with sound</span></div>
-      </article>
-
-      <article class="compare-card">
-        <div class="reel__frame reel__frame--feature" data-src="assets/videos/reel4.mp4">
-          <img class="poster" src="assets/images/poster4.jpg" alt="Raw versus final comparison, clip 4" loading="lazy">
-          <span class="reel__tag">Raw → Final</span>
-          <span class="reel__tc">00:18</span>
-          <div class="reel__playbtn"><i></i></div>
-        </div>
-        <div class="reel__cap"><h4>Social Content · Visual Editing</h4><span>Tap to play with sound</span></div>
-      </article>
-    </div>
+    <p class="reels__hint">← scroll or use the arrows to browse · tap a clip for sound-on →</p>
   </div>
 </section>
 
@@ -888,15 +912,6 @@ footer{
           <span class="trow__tag">Education</span>
         </div>
       </div>
-      <div class="trow trow--work">
-        <div class="trow__date">3 months</div>
-        <div class="trow__node"><i></i></div>
-        <div class="trow__body">
-          <h4>Video Editing Intern</h4>
-          <div class="org">Luxelite Studios — Internship</div>
-          <span class="trow__tag">Work</span>
-        </div>
-      </div>
       <div class="trow trow--edu">
         <div class="trow__date">2025 — 2026</div>
         <div class="trow__node"><i></i></div>
@@ -904,6 +919,15 @@ footer{
           <h4>Video Editing &amp; Motion Graphics</h4>
           <div class="org">eQuinoxx Creative Academy</div>
           <span class="trow__tag">Education</span>
+        </div>
+      </div>
+      <div class="trow trow--work">
+        <div class="trow__date">3 months</div>
+        <div class="trow__node"><i></i></div>
+        <div class="trow__body">
+          <h4>Video Editing Intern</h4>
+          <div class="org">Luxelite Studios — Internship</div>
+          <span class="trow__tag">Work</span>
         </div>
       </div>
       <div class="trow trow--work">
@@ -952,9 +976,46 @@ footer{
       <span class="eyebrow">What Clients Say</span>
       <h2>Trusted With Their Content.</h2>
     </div>
-    <!-- Placeholder: replace this card with real client testimonials as they come in. -->
-    <div class="testimonial-placeholder reveal">
-      <p>Client testimonials — coming soon. I'm currently gathering feedback from recent projects. Check back shortly, or reach out directly for references.</p>
+
+    <div class="scroller-wrap reveal">
+      <button class="scroller-btn scroller-btn--prev" data-target="testimonials-scroller" aria-label="Previous testimonial">‹</button>
+      <div class="testimonials__scroller" id="testimonials-scroller">
+        <article class="testimonial-card">
+          <p class="testimonial-card__quote">Honestly, this was exactly the kind of editing I was looking for. I record a lot of talking-head content, and I needed someone who understood how to keep people watching without making every second feel chaotic. The hooks, pacing, captions, and visual changes were all done really well — I barely had to explain what I wanted.</p>
+          <div class="testimonial-card__meta">Talking-Head Creator</div>
+        </article>
+
+        <article class="testimonial-card">
+          <p class="testimonial-card__quote">I've worked with editors before, and usually I have to spend a lot of time explaining every little change. With this project, the first version was already very close to what I had in mind. The edit felt natural and matched my style — small details like the timing of cuts and visuals made a much bigger difference than I expected.</p>
+          <div class="testimonial-card__meta">Content Creator</div>
+        </article>
+
+        <article class="testimonial-card">
+          <p class="testimonial-card__quote">I sent over pretty basic footage and wasn't completely sure how it was all going to come together. The final video looked way more polished while still feeling authentic. That's important for UGC, because you don't want it to feel like a traditional ad — the balance between engaging and natural was done really well.</p>
+          <div class="testimonial-card__meta">UGC Creator</div>
+        </article>
+
+        <article class="testimonial-card">
+          <p class="testimonial-card__quote">Medical content can be difficult because you need to keep it simple and engaging without making the information feel oversimplified. The editing helped make the video much easier to follow. The use of text, visuals, and pacing kept everything clear and organized — it felt professional without being boring.</p>
+          <div class="testimonial-card__meta">Medical Content Creator</div>
+        </article>
+
+        <article class="testimonial-card">
+          <p class="testimonial-card__quote">I wanted my videos to feel more engaging, especially for social media, but I didn't want them to become overly dramatic or distracting. The editing struck a good balance — important points were highlighted properly, the pacing was smooth, and the overall video felt much more professional than the raw footage.</p>
+          <div class="testimonial-card__meta">Social Media Creator</div>
+        </article>
+
+        <article class="testimonial-card">
+          <p class="testimonial-card__quote">Really happy with how this turned out. The raw footage was honestly pretty simple, but the final edit had so much more energy. Nothing felt forced or overdone — it was just cleaner, faster, and more interesting to watch. Exactly what I wanted for my content.</p>
+          <div class="testimonial-card__meta">Content Creator</div>
+        </article>
+
+        <article class="testimonial-card">
+          <p class="testimonial-card__quote">Really happy with how this turned out. The raw footage was honestly pretty simple, but the final edit had so much more energy. Nothing felt forced or overdone — it was just cleaner, faster, and more interesting to watch. Exactly what I wanted for my content.</p>
+          <div class="testimonial-card__meta">Content Creator</div>
+        </article>
+      </div>
+      <button class="scroller-btn scroller-btn--next" data-target="testimonials-scroller" aria-label="Next testimonial">›</button>
     </div>
   </div>
 </section>
@@ -1086,6 +1147,23 @@ document.addEventListener('DOMContentLoaded', () => {
   if (contactClose) contactClose.addEventListener('click', closeContactModal);
   if (contactModal) contactModal.addEventListener('click', (e) => { if (e.target === contactModal) closeContactModal(); });
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeContactModal(); });
+
+  /* ---------- scroller prev/next arrow buttons (Selected Work, Testimonials) ---------- */
+  document.querySelectorAll('.scroller-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const target = document.getElementById(btn.dataset.target);
+      if (!target) return;
+      const firstCard = target.querySelector(':scope > *');
+      const cardWidth = firstCard ? firstCard.getBoundingClientRect().width : 300;
+      const gapStr = getComputedStyle(target).columnGap || getComputedStyle(target).gap || '22px';
+      const gap = parseFloat(gapStr) || 22;
+      const amount = cardWidth + gap;
+      target.scrollBy({
+        left: btn.classList.contains('scroller-btn--prev') ? -amount : amount,
+        behavior: 'smooth'
+      });
+    });
+  });
 
   /* ---------- reel cards: click-to-play + lightbox ---------- */
   const lightbox = document.querySelector('.lightbox');
